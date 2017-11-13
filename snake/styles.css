@@ -1,0 +1,12 @@
+body{
+  background-color: slategrey;
+}
+canvas{
+  border-style: solid;
+  border-color: darkBlue;
+
+  position: relative;
+  display: block;
+  margin: auto;
+  top: 5vh;
+}
