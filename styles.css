@@ -1,0 +1,93 @@
+body{
+  font-family: 'Barlow Condensed', sans-serif;
+  background-color: rgb(182, 177, 195);
+}
+/* -- head -- */
+#head-container{
+  display: block;
+
+  width: 50vw;
+  margin: auto;
+
+  transition-duration: 2s;
+  transition-property: background-color;
+
+  border-style: solid;
+
+  background-color: rgb(182, 187, 185);
+}
+#head-container:hover{
+  background-color: rgb(69, 103, 138);
+}
+#head-container:hover h1{
+  transition-duration: 4s;
+  color: rgb(182, 187, 185); 
+
+}
+#head-container h1, #head-container h2{
+  padding-left: 2vw;
+}
+#head-container h2 #first, #head-container h2 #second{
+  color: rgb(162, 49, 49);
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-name: head-description-show;
+  opacity: 0;
+}
+#head-container h2 #first{
+  animation-delay: 0.5s;
+}
+#head-container h2 #second{
+  animation-delay: 2s;
+  font-size: 0.9em;
+}
+
+@keyframes head-description-show {
+  from{opacity: 0;}
+  to{opacity: 1}
+}
+/* -- end, head -- */
+
+#main-container{
+  display: block;
+
+  margin: auto;
+  margin-top: 7.5vh;
+
+  width: 85vw;
+
+  border-style: solid;
+
+  background-color: rgb(192, 197, 195);
+}
+#main-container a{
+  display: block;
+
+  margin: 2vh;
+  margin-left: 4vw;
+  margin-right: 10vw;
+
+  padding-left: 10vw;
+  padding: 7.5vh;
+
+  transition-duration: 2s;
+
+  border-top-right-radius: 60%;
+  border-bottom-left-radius: 60%;
+
+  color: rgb(10, 13, 36);
+
+  font-size: 1.5em;
+
+  text-decoration: none;
+
+}
+#main-container a:hover{
+  background-color: rgba(69, 103, 138, 0.5);
+
+  border-radius: 25%;
+  border-top-right-radius: 75%;
+  border-bottom-left-radius: 30%;
+
+  border-style: solid;
+}
