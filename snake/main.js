@@ -53,7 +53,7 @@ function draw(){
   if(!insideBorders || snake.selfBite()){
     endMessage.update("lost. score: " + score, width/2, width/2);
     endMessage.show();
-    noLoop(); 
+    noLoop();
     lost = true;
   }
 }
@@ -77,21 +77,4 @@ function keyPressed(){
       snake.moveLeft();
       break;
   }
-}
-function containsCoordinates(arr, x){
-  for(i in arr){
-    if (JSON.stringify(arr[i]) == JSON.stringify(x)) {
-      return true;
-    }
-  }
-  return false;
-}
-function returnAllButFirst(arr){
-  returArr = [];
-  for(i in arr){
-    if(i !== 0){
-      returArr.push(arr[i]);
-    }
-  }
-  return returArr;
 }
