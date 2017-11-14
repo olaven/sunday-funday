@@ -1,5 +1,8 @@
 body{
   font-family: 'Barlow Condensed', sans-serif;
+
+  padding-top: 3vh; 
+
   background-color: rgb(182, 177, 195);
 }
 /* -- head -- */
@@ -21,7 +24,7 @@ body{
 }
 #head-container:hover h1{
   transition-duration: 4s;
-  color: rgb(182, 187, 185); 
+  color: rgb(182, 187, 185);
 
 }
 #head-container h1, #head-container h2{
