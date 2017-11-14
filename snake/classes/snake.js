@@ -6,19 +6,13 @@ function Snake(){
   this.ySpeed = 0;
 
   this.tail = [[this.x, this.y]];
-  this.length = 1;
+  this.length = 0;
 
   this.update = function(){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
 
     //keep track of current location
-
-    /*
-    for(i = 1; i < this.length; i++){
-      this.tail[i] = this.tail[i - 1];
-    }
-    */
     for(i = this.length; i > 0; i--){
       this.tail[i] = this.tail[i-1];
     }
@@ -35,6 +29,15 @@ function Snake(){
       rect(this.tail[i][0], this.tail[i][1], block, block);
     }
   }
+  this.selfBite = function(){
+    for(i = 1; i < this.tail.length; i++){
+      if(this.tail[0][0] === this.tail[i][0] && this.tail[0][1] === this.tail[i][1]){
+        return true;
+      }
+    }
+    return false; 
+  }
+
   this.moveUp = function(){
     this.xSpeed = 0;
     this.ySpeed = -block;

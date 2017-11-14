@@ -50,16 +50,17 @@ function draw(){
     snake.update();
   }
   //losing
-  if(!insideBorders /* || logic for self-bite*/){
+  if(!insideBorders || snake.selfBite()){
     endMessage.update("lost. score: " + score, width/2, width/2);
     endMessage.show();
+    noLoop(); 
     lost = true;
   }
 }
 
 function keyPressed(){
   if(lost){
-    console.log("lost");
+    location.reload();
     return;
   }
   switch (keyCode) {
