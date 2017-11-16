@@ -8,6 +8,8 @@ function Snake(){
   this.tail = [[this.x, this.y]];
   this.length = 0;
 
+  this.direction = "right";
+
   this.update = function(){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
@@ -35,23 +37,39 @@ function Snake(){
         return true;
       }
     }
-    return false; 
+    return false;
   }
 
   this.moveUp = function(){
+    if(this.length > 0 && this.direction == "down"){
+      return;
+    }
     this.xSpeed = 0;
     this.ySpeed = -block;
+    this.direction = "up";
   }
   this.moveDown = function(){
+    if(this.length > 0 && this.direction == "up"){
+      return;
+    }
     this.xSpeed = 0;
     this.ySpeed = block;
+    this.direction = "down";
   }
   this.moveRight = function(){
+    if(this.length > 0 && this.direction == "left"){
+      return; 
+    }
     this.xSpeed = block;
     this.ySpeed = 0;
+    this.direction = "right";
   }
   this.moveLeft = function(){
+    if(this.length > 0 && this.direction == "right"){
+      return;
+    }
     this.xSpeed = -block;
     this.ySpeed = 0;
+    this.direction = "left";
   }
 }
