@@ -1,0 +1,13 @@
+body{
+  background-color: rgb(110, 44, 50);
+}
+canvas{
+  border-style: solid;
+  border-width: 1em;
+  border-color: rgb(140, 100, 50);
+  border-radius: 25%;
+
+  display: block;
+  margin: auto;
+  margin-top: 35vh; 
+}
