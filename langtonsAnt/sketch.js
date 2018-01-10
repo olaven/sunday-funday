@@ -1,3 +1,7 @@
+
+//user desides the steps per frame -> 1 by default
+let stepsPerFrame;
+//grid (2DArray)
 let grid;
 //position of ant
 let x;
@@ -13,9 +17,10 @@ const LEFT = 3;
 function setup() {
   createCanvas(floor(windowWidth), floor(windowHeight));
   background(200);
+  stepsPerFrame = 1;
   grid = make2DArray(width, height);
-  x = width / 2;
-  y = height / 2 ;
+  x = floor(width / 2);
+  y = floor(height / 2);
   //place ant
   grid[x][y] = 1;
   //starting direction
@@ -23,6 +28,15 @@ function setup() {
 }
 function draw() {
   //DENNE LOOPER AV SEG SELV -> p5 being p5
+  movementLogic();
+  let counter = 0;
+  while(counter < stepsPerFrame){//user defines amount of steps per frame
+    movementLogic();
+    counter++;
+  }
+}
+//the movement logic, implemented in each draw()
+function movementLogic() {
   if(grid[x][y] == 0) {
     turnRight();
     grid[x][y] = 1;
@@ -37,21 +51,34 @@ function draw() {
 
 //move forward
 function moveForward() {
+  //change direction
   switch (dir) {
     case UP:
-      y -= 1;
+      y--;
       break;
     case RIGHT:
       x += 1;
       break;
     case DOWN:
-      y += 1;
+      y++;
       break;
     case LEFT:
       x -= 1;
       break;
     default:
       throw "invalid direction";
+  }
+  //check if the ant is about to move outside of borders
+  if(y < 0){
+    y = height - 1;
+  } else if (y > height - 1) {
+    y = 0;
+  }
+
+  if (x < 0) {
+    x = width - 1;
+  } else if (x > width - 1) {
+    x = 0;
   }
 }
 //turning
