@@ -2,37 +2,12 @@
     <head>
         <script src="../libs/p5.min.js"></script>
         <script src="sketch.js"></script>
-        <!--small script for handling user input-->
-        <script type="text/javascript">
-          let userInput;
-          window.onload = function() {
-            inputBox = document.getElementById("userInput");
-            inputBox.onchange = function(){
-              if (parseInt(inputBox.value) < 0) {
-                inputBox.value = 0;
-                inputBox.style.borderColor = "red";
-                setTimeout(function(){
-                  inputBox.style.borderColor = "black";
-                }, 500)
-              } else {
-                //value from sketch.js
-                stepsPerFrame = parseInt(inputBox.value);
-              }
-            }
-          }
-        </script>
+        
         <style media="screen">
           body{
             margin: 0;
           }
-          #userInput{
-            position: fixed;
-            border-style: solid;
-            outline: none;
-          }
         </style>
     </head>
-    <body>
-      <input id="userInput" min="0" placeholder="change speed" type="number">
-    </body>
+    <body></body>
 </html>
