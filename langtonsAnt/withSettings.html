@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <script src="../libs/p5.min.js"></script>
+        <script src="sketch.js"></script>
+        <script src="ant.js"></script>
+        <!--small script for handling user input-->
+        <script type="text/javascript">
+          window.onload = function() {
+            //change the amount of steps per drawing
+            stepsPerFrameInput = document.getElementById("stepsPerFrameInput");
+            stepsPerFrameInput.onchange = function(){
+              if (parseInt(stepsPerFrameInput.value) < 0) {
+                invalidInput(stepsPerFrameInput);
+              } else {
+                //value from sketch.js
+                stepsPerFrame = parseInt(stepsPerFrameInput.value);
+              }
+            }
+            //add ants to the screen
+            let addAntInput = document.getElementById("addAntInput");
+            document.onkeydown = function(event){
+              if (event.keyCode == 13 && document.activeElement == addAntInput) {
+                if(parseInt(addAntInput.value) < 0){
+                  invalidInput(addAntInput)
+                } else {
+                  console.log("hei");
+                  addAnt(parseInt(addAntInput.value), ants)
+                }
+              }
+            }
+          }
+        </script>
+        <style media="screen">
+          body{
+            margin: 0;
+          }
+          input{
+            position: fixed;
+            border-style: solid;
+            outline: none;
+            width: 15vw;
+          }
+          #stepsPerFrameInput{
+            left: 0vw;
+          }
+          #addAntInput{
+            left: 15vw;
+          }
+        </style>
+    </head>
+    <body>
+      <input id="stepsPerFrameInput" min="0" placeholder="speed" type="number">
+      <input id="addAntInput" min="0" placeholder="add amount + enter" type="number">
+    </body>
+</html>
