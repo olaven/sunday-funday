@@ -60,10 +60,18 @@ function make2DArray(rows, columns){
 }
 
 function addAnt(amount, arr) {
-  for(let i = 0; i < amount; i++){
-    let x = floor(random(1, width - 1));
-    let y = floor(random(1, height - 1));
+    let x;
+    let y;
+    //if one ant -> display in center
+    for(let i = 0; i < amount; i++){
+      if (arr.length === 0) { //the ant is not yet added
+        x = floor(width / 2);
+        y = floor(height / 2);
+      } else {
+        x = floor(random(1, width - 1));
+        y = floor(random(1, height - 1));
+      }
+      arr.push(new Ant(x, y));
+    }
 
-    arr.push(new Ant(x, y));
-  }
 }
