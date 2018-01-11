@@ -6,27 +6,29 @@
         <!--small script for handling user input-->
         <script type="text/javascript">
           window.onload = function() {
-            //change the amount of steps per drawing
-            stepsPerFrameInput = document.getElementById("stepsPerFrameInput");
-            stepsPerFrameInput.onchange = function(){
-              if (parseInt(stepsPerFrameInput.value) < 0) {
-                invalidInput(stepsPerFrameInput);
-              } else {
-                //value from sketch.js
-                stepsPerFrame = parseInt(stepsPerFrameInput.value);
-              }
-            }
-            //add ants to the screen
+            let stepsPerFrameInput = document.getElementById("stepsPerFrameInput");
             let addAntInput = document.getElementById("addAntInput");
+
             document.onkeydown = function(event){
-              if (event.keyCode == 13 && document.activeElement == addAntInput) {
-                if(parseInt(addAntInput.value) < 0){
-                  invalidInput(addAntInput)
-                } else {
-                  addAnt(parseInt(addAntInput.value), ants);
+            if (event.keyCode == 13) {
+              //change stepsPerFrame
+              switch (document.activeElement) {
+                case stepsPerFrameInput:
+                  if (parseInt(stepsPerFrameInput.value) < 0) {
+                    invalidInput(stepsPerFrameInput);
+                  } else {
+                    stepsPerFrame = parseInt(stepsPerFrameInput.value);//value from sketch.js
+                  }
+                  break;
+                  case addAntInput:
+                    if(parseInt(addAntInput.value) < 0){
+                      invalidInput(addAntInput)
+                    } else {
+                      addAnt(parseInt(addAntInput.value), ants);//function in sketch.js
+                    }
+                  }
                 }
               }
-            }
             //save image of canvas
             let saveImageButton = document.getElementById("saveImageButton");
             saveImageButton.onclick = function(){
@@ -44,12 +46,22 @@
             outline: none;
             width: 15vw;
             height: 2.5vh;
+            opacity: 0.5;
+          }
+          input:hover, button:hover{
+            opacity: 1;
           }
           #stepsPerFrameInput{
             left: 0vw;
           }
           #addAntInput{
             left: 15vw;
+          }
+          button{
+            border-color: black;
+          }
+          button:hover{
+            cursor: pointer;
           }
           #saveImageButton{
             top: 2.5vh;
@@ -61,8 +73,8 @@
         </style>
     </head>
     <body>
-      <input id="stepsPerFrameInput" min="0" placeholder="speed" type="number">
-      <input id="addAntInput" min="0" placeholder="add amount + enter" type="number">
+      <input id="stepsPerFrameInput" min="0" placeholder="steps per frame" type="number">
+      <input id="addAntInput" min="0" placeholder="add ants" type="number">
       <button id="saveImageButton" type="button">save image.</button>
       <button id="minimalVersionButton" type="button"> <a href="index.html"> minimal version. </a> </button>
     </body>
