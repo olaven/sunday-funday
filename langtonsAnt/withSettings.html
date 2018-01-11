@@ -23,9 +23,14 @@
                 if(parseInt(addAntInput.value) < 0){
                   invalidInput(addAntInput)
                 } else {
-                  addAnt(parseInt(addAntInput.value), ants); 
+                  addAnt(parseInt(addAntInput.value), ants);
                 }
               }
+            }
+            //save image of canvas
+            let saveImageButton = document.getElementById("saveImageButton");
+            saveImageButton.onclick = function(){
+              save("langtons_ant.png"); //function from p5js
             }
           }
         </script>
@@ -33,11 +38,12 @@
           body{
             margin: 0;
           }
-          input{
+          input, button{
             position: fixed;
             border-style: solid;
             outline: none;
             width: 15vw;
+            height: 2.5vh;
           }
           #stepsPerFrameInput{
             left: 0vw;
@@ -45,10 +51,19 @@
           #addAntInput{
             left: 15vw;
           }
+          #saveImageButton{
+            top: 2.5vh;
+          }
+          #minimalVersionButton{
+            top: 2.5vh;
+            left: 15vw;
+          }
         </style>
     </head>
     <body>
       <input id="stepsPerFrameInput" min="0" placeholder="speed" type="number">
       <input id="addAntInput" min="0" placeholder="add amount + enter" type="number">
+      <button id="saveImageButton" type="button">save image.</button>
+      <button id="minimalVersionButton" type="button"> <a href="index.html"> minimal version. </a> </button>
     </body>
 </html>
