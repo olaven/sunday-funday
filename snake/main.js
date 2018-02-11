@@ -9,6 +9,15 @@ let score;
 let insideBorders;
 let lost;
 
+const W_KEY = 87
+    , S_KEY = 83
+    , D_KEY = 68
+    , A_KEY = 65
+    , K_KEY = 75
+    , J_KEY = 74
+    , L_KEY = 76
+    , H_KEY = 72;
+
 function setup(){
   createCanvas(400,400);
   frameRate(10);
@@ -65,15 +74,23 @@ function keyPressed(){
   }
   switch (keyCode) {
     case UP_ARROW:
-        snake.moveUp();
+    case W_KEY:
+    case K_KEY:
+      snake.moveUp();
       break;
     case DOWN_ARROW:
+    case S_KEY:
+    case J_KEY:
       snake.moveDown();
       break;
     case RIGHT_ARROW:
+    case D_KEY:
+    case L_KEY:
       snake.moveRight();
       break;
     case LEFT_ARROW:
+    case A_KEY:
+    case H_KEY:
       snake.moveLeft();
       break;
   }
