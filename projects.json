@@ -1,0 +1,20 @@
+{
+    "projects" : [
+        {
+            "name": "project1", 
+            "path": "../project1.index.html"
+        },
+        {
+            "name": "project2", 
+            "path": "../project1.index.html"
+        },
+        {
+            "name": "project3", 
+            "path": "../project1.index.html"
+        },
+        {
+            "name": "project4", 
+            "path": "../project1.index.html"
+        }
+    ]
+}
