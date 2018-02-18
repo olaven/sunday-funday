@@ -10,7 +10,7 @@
 * Only files in ```projects.json``` are included on website 
 
 
-##Todo
+## Todo
 - [ ] finish client 
 - [x] generate projects on website from projects.json 
 - [x] improve filestructure 
