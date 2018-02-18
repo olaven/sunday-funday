@@ -11,7 +11,7 @@
 
 
 ##Todo
-[ ] finish client 
-[x] generate projects on website from projects.json 
-[x] improve filestructure 
-[ ] merge back to main branch
+- [ ] finish client 
+- [x] generate projects on website from projects.json 
+- [x] improve filestructure 
+- [ ] merge back to main branch
