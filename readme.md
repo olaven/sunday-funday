@@ -8,3 +8,10 @@
     * update ```projects.json``` manually
 * Project files are stored in ```./projects```
 * Only files in ```projects.json``` are included on website 
+
+
+##Todo
+[ ] finish client 
+[ ] generate projects on website from projects.json 
+[ ] improve filestructure 
+[ ] merge back to main branch
