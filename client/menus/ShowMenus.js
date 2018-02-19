@@ -21,7 +21,7 @@ module.exports = {
         let info = "" 
             +"\nYou are about to add a new project to the site" 
             +"\nI need the name, path and description. The latter is optional" 
-            + "\n";
+            +"\n";
 
         console.log(info);
     }, 

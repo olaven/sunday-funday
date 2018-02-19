@@ -4,7 +4,7 @@ let PATH_TO_JSON = "../projects.json";
 let PATH_TO_HTML = "../src/index.html";
 
 let top = `
-    <--!
+    <!--
         Built with script(s) in ../client. 
         Made by @olaven. 
     -->
@@ -56,5 +56,7 @@ let bottom = `
 `;
 
 let content = top + formatProjects() + bottom;
-fs.writeFileSync(PATH_TO_HTML, content, "utf8");
 
+module.exports = () => {
+    fs.writeFileSync(PATH_TO_HTML, content, "utf8");
+}

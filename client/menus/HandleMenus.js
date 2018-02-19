@@ -1,5 +1,3 @@
-const ProjectsManager = require("../ProjectsManager"); 
-
 /**
  * Functions that handle responses from user  
  */
@@ -8,40 +6,40 @@ module.exports = {
    * Handle response from user and act accordingly 
    * @param input function should respond to
    */
-    main: (input) => {
+    main: (input, callback) => {
         /*I believe 'Input' is a better name in this context, 
         compared t o 'answer'*/
         switch (input.toLowerCase()) {
             case "1":
             case "add":
             case "add project":
-                ProjectsManager.add(); 
+                callback("add"); 
                 break;
             case "2":
             case "remove":
             case "delete":
-                ProjectsManager.remove(); 
+                callback("remove");  
                 break;
             case "3":
+            case "ls":
             case "list":
             case "list registered projects":
-                ProjectsManager.list(); 
+                callback("list"); 
                 break;
             case "4":
             case "rebuild":
             case "rebuild site":
-                console.log("rebuild is not implemented yet");  
+                callback("rebuild");    
                 break;
             case "5":
             case "e":
             case "exit":
             case "quit":
-                console.log("Goodbye!"); 
-                process.exit(); 
-            default:
-                console.log("--this input was invalid--");
-                return "default";  
-                break;
+                callback("exit");   
+                break; 
+            default: 
+                callback("default"); 
+                break;  
         }
     }, 
     /**
