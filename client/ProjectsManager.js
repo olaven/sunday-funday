@@ -1,6 +1,6 @@
 const fs = require('fs'); 
 //NOTE: using syncronous methods now, but it may be better to use asnconous if file gets bigger 
-const PATH_TO_PROJECTS = "projects.json"; 
+const PATH_TO_PROJECTS = "../projects.json"; 
 //TODO: Functionality not implemented 
 module.exports = {
   /**
@@ -18,13 +18,6 @@ module.exports = {
         //loading file 
         let projects = getJson(PATH_TO_PROJECTS).projects;
         
-        //checking if name is taken
-        for(project of projects){
-            if(project.name === name){
-                throw "this name already exists. Try another one :-D"
-            }
-        }
-
         projects.push({
             name: name,
             path: path,
@@ -70,6 +63,20 @@ module.exports = {
             console.log(info);
         }
         console.log("\n------------------------");
+    }, 
+    /**
+     * Returning true if project is registered 
+     * @param name Name of project to look for
+     */
+    isProjectRegistered: (name) => {
+        let projects = getJson(PATH_TO_PROJECTS).projects;
+        //checking if name is taken
+        for(project of projects){
+            if(project.name === name){
+                return true; 
+            }
+        }
+        return false; 
     }
 };
 

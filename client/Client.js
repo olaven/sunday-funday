@@ -1,21 +1,17 @@
+
 const readline = require("readline");
 
 const ShowMenus = require("./menus/ShowMenus");
 const HandleMenus = require("./menus/HandleMenus");
 
 const ProjectsManager = require("./ProjectsManager");
-const BuildSiteFromJson = require("./BuildSiteFromJson");  
+const BuildSiteFromJson = require("./BuildSiteFromJson");
 
-/**
- * creates interface and assigns it to rl-variable
- */
-let createReadlineInterface = () => {
-    let rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-    return rl;
-};
+//!keep in mind that this is global! -> does not feel like a good solution 
+let rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});; 
 
 /**
  * Acts as entry point for this application
@@ -23,8 +19,9 @@ let createReadlineInterface = () => {
 let triggerMain = () => {
     ShowMenus.main();
     let responseFromMainMenu;
-    let rl = createReadlineInterface();
-    rl.question("What do you want to do?", answer => {
+    rl.setPrompt("What do you want to do?"); 
+    rl.prompt(); 
+    rl.on('line', (answer) => {
         HandleMenus.main(answer, response => {
             switch (response) {
                 case "add":
@@ -34,9 +31,11 @@ let triggerMain = () => {
                     triggerRemove();
                     break;
                 case "list":
+                    rl.close(); 
                     triggerList();
                     break;
                 case "rebuild":
+                    rl.close(); 
                     triggerRebuild();
                     break;
                 case "exit":
@@ -47,15 +46,61 @@ let triggerMain = () => {
                     break;
             }
         });
-    rl.close();
     });
 };
 /** 
  * Triggers functions for adding a new project
 */
 let triggerAdd = () => {
-    console.log("ADD NOT IMPLEMENTED YET. COMING SOON!");
-    ProjectsManager.add()//needs params as well 
+
+    let newProject = {name : "", path : "", description : ""}; 
+
+    rl.setPrompt("What is the name of your project?\n"); 
+    rl.prompt(); 
+    rl.on('line', (name) => {
+        name = name.trim().toLowerCase(); 
+        if(ProjectsManager.isProjectRegistered(name)){
+            console.log("\nA project with that name is already registered. Try another one :-D\n"); 
+            rl.prompt(); 
+        } else {
+            newProject.name = name; 
+            console.log("Great name! (stuck? type 'help' :-)");
+            rl.setPrompt("Where may I find this file?"); 
+            rl.prompt(); 
+            rl.on('line', (path) => {
+                path = path.trim().toLowerCase(); 
+                if(path === "help"){
+                    console.log(`\nI want the file path for your project. Usually, the path would look something like this: projects/${newProject.name}/index.html
+                        \n\ntype in the path as if you were in the root folder of the project :-)
+                        \n\nIt can also be a link to an external site. The point is just that it will be available from the root folder of this project and
+                        \nwill be accessible from the published site (not just on your machine`); 
+                        rl.prompt(); 
+                } else {
+                    console.log("Okay, got it ^^"); 
+                    newProject.path = path; 
+
+                    rl.setPrompt("(optional) add a description for your project!"); 
+                    rl.prompt(); 
+                    rl.on('line', (description) => {
+                        console.log(description.length > 0 ? "\nPeople will have a better understanding of your project!" : "\nNo? Alright, you do you :-)"); 
+                        
+                        description = description.trim().toLowerCase();
+                        newProject.description = description;        
+
+                        console.log(`
+                            name: ${newProject.name}\n
+                            path: ${newProject.path}\n 
+                            description: ${newProject.description}\n
+                        
+                            Adding now.. Remeber to rebuild afterwards :-D 
+                        `); 
+                        rl.close(); 
+                        ProjectsManager.add(newProject.name, newProject.path, newProject.description); 
+                    })
+                }
+            })
+        }
+    }); 
 };
 /** 
  * Triggers functions for removing a project
@@ -90,7 +135,7 @@ let triggerExit = () => {
  * Lets the user know that options was not valid 
  */
 let triggerDefault = () => {
-    console.log("\nNot valid. Try something from the menu :-D\n"); 
+    console.log("\nNot valid. Try something from the menu :-D"); 
     triggerMain(); 
 };
 
