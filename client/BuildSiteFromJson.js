@@ -1,7 +1,7 @@
 let fs = require("fs");
 
 let PATH_TO_JSON = "../projects.json";
-let PATH_TO_HTML = "../src/index.html";
+let PATH_TO_HTML = "../docs/index.html";
 
 let top = `
     <!--
@@ -13,7 +13,7 @@ let top = `
     <head>
         <meta charset="utf-8">
         <title>funday-sunday</title>
-        <link rel="stylesheet" href="../src/styles.css">
+        <link rel="stylesheet" href="../docs/styles.css">
         <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
     </head>
     <body>
