@@ -1,6 +1,6 @@
 const fs = require('fs'); 
 //NOTE: using syncronous methods now, but it may be better to use asnconous if file gets bigger 
-const PATH_TO_PROJECTS = "../projects.json"; 
+const PATH_TO_PROJECTS = "projects.json"; 
 //TODO: Functionality not implemented 
 module.exports = {
   /**

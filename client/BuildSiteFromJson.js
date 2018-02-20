@@ -1,7 +1,8 @@
 let fs = require("fs");
 
 let PATH_TO_JSON = "../projects.json";
-let PATH_TO_HTML = "../docs/index.html";
+let PATH_TO_HTML = "../index.html";
+let PATH_TO_STYLE_FROM_INDEX = "styles.css"; //path FROM INDEX, not from this file 
 
 let top = `
     <!--
@@ -13,7 +14,7 @@ let top = `
     <head>
         <meta charset="utf-8">
         <title>funday-sunday</title>
-        <link rel="stylesheet" href="../docs/styles.css">
+        <link rel="stylesheet" href="` + PATH_TO_STYLE_FROM_INDEX + `">
         <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
     </head>
     <body>
