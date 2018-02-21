@@ -2,6 +2,7 @@ const fs = require('fs');
 //NOTE: using syncronous methods now, but it may be better to use asnconous if file gets bigger 
 const PATH_TO_PROJECTS = "../projects.json"; 
 //TODO: Functionality not implemented 
+
 module.exports = {
   /**
    * Add a project to the web page 
@@ -11,7 +12,7 @@ module.exports = {
    */
     add: (name, path, description) => {
         if (!name || !path) {
-            throw "invalid name, path or description";
+            throw "invalid name, path";
         }
         if(!description) description = ""; 
 
@@ -23,10 +24,7 @@ module.exports = {
             path: path,
             description: description
         });
-        //turning back to json
-        projects = '{"projects":' + JSON.stringify(projects) + "}";
-        //               path,          data,     encoding
-        fs.writeFileSync(PATH_TO_PROJECTS, projects, "utf8");
+        writeToJson(); 
     },
     /**
      * Remove a project from the webpage
@@ -34,12 +32,13 @@ module.exports = {
      */
     remove: (name) => {
         let projects = getJson(PATH_TO_PROJECTS).projects; 
-        for(i of projects){
+        for(i in projects){
             if(projects[i].name === name){
                 projects.splice(i ,1); 
             }
         }
-        console.log("\n" + name + " was removed\n"); 
+        //write back the modified object 
+        writeToJson(); 
     },
     /**
      * list data of all registered projects
@@ -77,6 +76,20 @@ module.exports = {
             }
         }
         return false; 
+    }, 
+    /**
+     * Returns project-data as an object with .name, .path and .description 
+     * Returns false if no object is registered with specified name 
+     * @param name 
+     */
+    getProject: (name) => {
+        let projects = getJson(PATH_TO_PROJECTS).projects; 
+        for(project of projects){
+            if(project.name === name){
+                return project; 
+            }
+        } 
+        return false; 
     }
 };
 
@@ -98,4 +111,15 @@ let getJson = (path) => {
  */
 let formatForProjects = (unformatted) =>{
     return "{ 'projects': " + unformatted + "}"; 
+}
+
+/**
+ * Formats the object back to expected JSON-string 
+ */
+let writeToJson = () => {
+    let projects = getJson(PATH_TO_PROJECTS).projects;
+    //turning back to json
+    projects = '{"projects":' + JSON.stringify(projects) + "}";
+    //               path,          data,     encoding
+    fs.writeFileSync(PATH_TO_PROJECTS, projects, "utf8");
 }

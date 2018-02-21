@@ -94,7 +94,7 @@ let triggerAdd = () => {
                         
                             Adding now.. Remeber to rebuild afterwards :-D 
                         `); 
-                        rl.close(); 
+                        triggerMain();
                         ProjectsManager.add(newProject.name, newProject.path, newProject.description); 
                     })
                 }
@@ -106,7 +106,33 @@ let triggerAdd = () => {
  * Triggers functions for removing a project
 */
 let triggerRemove = () => {
-    console.log("REMOVE NOT IMPLEMENTED YET. COMING SOON!"); 
+    rl.setPrompt("WARNING: You are about to remove a project.\nWhat is the name of the project?"); 
+    rl.prompt(); 
+    rl.on('line', (name) => {
+        if(ProjectsManager.isProjectRegistered(name)){
+            let projectToBeRemoved = ProjectsManager.getProject(name); 
+            console.log(
+                "\n" + projectToBeRemoved.name + "\n" + projectToBeRemoved.path + "\n" + projectToBeRemoved.description
+            ); 
+            rl.setPrompt("Are you sure? (y/n)"); 
+            rl.prompt(); 
+            rl.on('line', (answer) => {
+                answer = answer.trim().toLowerCase(); 
+                if(answer === "y"){
+                    console.log("removing..");
+                    ProjectsManager.remove(projectToBeRemoved.name); 
+                } else if(answer === "n") {
+                    rl.close(); 
+                    console.log("Aborting deletion."); 
+                } else {
+                    console.log("Not sure I understood that.. "); 
+                    rl.prompt(); 
+                }
+            })
+        } else {
+            console.log("\nThis project is not registered and can thus not be deleted"); 
+        }
+    }) 
 };
 /** 
  * Triggers functions for listing registered projects 
