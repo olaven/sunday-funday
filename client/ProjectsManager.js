@@ -18,13 +18,12 @@ module.exports = {
 
         //loading file 
         let projects = getJson(PATH_TO_PROJECTS).projects;
-        
         projects.push({
             name: name,
             path: path,
             description: description
         });
-        writeToJson(); 
+        writeToJson(projects); 
     },
     /**
      * Remove a project from the webpage
@@ -38,7 +37,7 @@ module.exports = {
             }
         }
         //write back the modified object 
-        writeToJson(); 
+        writeToJson(projects); 
     },
     /**
      * list data of all registered projects
@@ -116,10 +115,10 @@ let formatForProjects = (unformatted) =>{
 /**
  * Formats the object back to expected JSON-string 
  */
-let writeToJson = () => {
-    let projects = getJson(PATH_TO_PROJECTS).projects;
+let writeToJson = (projects) => {
     //turning back to json
     projects = '{"projects":' + JSON.stringify(projects) + "}";
     //               path,          data,     encoding
     fs.writeFileSync(PATH_TO_PROJECTS, projects, "utf8");
 }
+

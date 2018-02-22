@@ -12,7 +12,6 @@ let rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });; 
-
 /**
  * Acts as entry point for this application
  */
@@ -31,11 +30,9 @@ let triggerMain = () => {
                     triggerRemove();
                     break;
                 case "list":
-                    rl.close(); 
                     triggerList();
                     break;
                 case "rebuild":
-                    rl.close(); 
                     triggerRebuild();
                     break;
                 case "exit":
@@ -52,23 +49,25 @@ let triggerMain = () => {
  * Triggers functions for adding a new project
 */
 let triggerAdd = () => {
-
     let newProject = {name : "", path : "", description : ""}; 
-
     rl.setPrompt("What is the name of your project?\n"); 
     rl.prompt(); 
     rl.on('line', (name) => {
+        console.log("name before adjustment:" + name); 
         name = name.trim().toLowerCase(); 
+        console.log("name after adjustment:" + name); 
         if(ProjectsManager.isProjectRegistered(name)){
             console.log("\nA project with that name is already registered. Try another one :-D\n"); 
             rl.prompt(); 
         } else {
+            console.log("name being added:" + name); 
             newProject.name = name; 
             console.log("Great name! (stuck? type 'help' :-)");
             rl.setPrompt("Where may I find this file?"); 
             rl.prompt(); 
             rl.on('line', (path) => {
                 path = path.trim().toLowerCase(); 
+                console.log("Pah entered : " + path); 
                 if(path === "help"){
                     console.log(`\nI want the file path for your project. Usually, the path would look something like this: projects/${newProject.name}/index.html
                         \n\ntype in the path as if you were in the root folder of the project :-)
@@ -78,7 +77,7 @@ let triggerAdd = () => {
                 } else {
                     console.log("Okay, got it ^^"); 
                     newProject.path = path; 
-
+                    console.log("DESCRIPTION PART"); 
                     rl.setPrompt("(optional) add a description for your project!"); 
                     rl.prompt(); 
                     rl.on('line', (description) => {
@@ -86,7 +85,6 @@ let triggerAdd = () => {
                         
                         description = description.trim().toLowerCase();
                         newProject.description = description;        
-
                         console.log(`
                             name: ${newProject.name}\n
                             path: ${newProject.path}\n 
@@ -94,11 +92,11 @@ let triggerAdd = () => {
                         
                             Adding now.. Remeber to rebuild afterwards :-D 
                         `); 
-                        triggerMain();
+                        rl.close(); 
                         ProjectsManager.add(newProject.name, newProject.path, newProject.description); 
-                    })
+                    }); 
                 }
-            })
+            }); 
         }
     }); 
 };
@@ -109,29 +107,17 @@ let triggerRemove = () => {
     rl.setPrompt("WARNING: You are about to remove a project.\nWhat is the name of the project?"); 
     rl.prompt(); 
     rl.on('line', (name) => {
+        name = name.trim().toLowerCase(); 
         if(ProjectsManager.isProjectRegistered(name)){
             let projectToBeRemoved = ProjectsManager.getProject(name); 
             console.log(
-                "\n" + projectToBeRemoved.name + "\n" + projectToBeRemoved.path + "\n" + projectToBeRemoved.description
+                "\n" + projectToBeRemoved.name + "\n" + projectToBeRemoved.path + "\n" + projectToBeRemoved.description + "\n\nIs deleted."
             ); 
-            rl.setPrompt("Are you sure? (y/n)"); 
-            rl.prompt(); 
-            rl.on('line', (answer) => {
-                answer = answer.trim().toLowerCase(); 
-                if(answer === "y"){
-                    console.log("removing..");
-                    ProjectsManager.remove(projectToBeRemoved.name); 
-                } else if(answer === "n") {
-                    rl.close(); 
-                    console.log("Aborting deletion."); 
-                } else {
-                    console.log("Not sure I understood that.. "); 
-                    rl.prompt(); 
-                }
-            })
+            ProjectsManager.remove(name); 
         } else {
             console.log("\nThis project is not registered and can thus not be deleted"); 
         }
+        rl.close(); 
     }) 
 };
 /** 
@@ -162,7 +148,6 @@ let triggerExit = () => {
  */
 let triggerDefault = () => {
     console.log("\nNot valid. Try something from the menu :-D"); 
-    triggerMain(); 
 };
 
 // APPLICATION ENTRY POINT
